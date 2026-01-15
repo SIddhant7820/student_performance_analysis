@@ -22,26 +22,44 @@ from sklearn.metrics import r2_score
 import sys
 from src.exception import CustomException
 
-def evaluate_models(x_train, y_train, x_test, y_test, models):
+def evaluate_models(x_train, y_train, x_test, y_test, models, params):
     try:
         report = {}
 
         for model_name, model in models.items():
-            # Train model
-            model.fit(x_train, y_train)
+
+            param_grid = params.get(model_name, {})
+
+            if param_grid:
+                gs = GridSearchCV(
+                    estimator=model,
+                    param_grid=param_grid,
+                    cv=3,
+                    scoring="r2",
+                    n_jobs=-1
+                )
+                gs.fit(x_train, y_train)
+
+                best_model = gs.best_estimator_
+
+            else:
+                best_model = model
+                best_model.fit(x_train, y_train)
 
             # Predictions
-            y_train_pred = model.predict(x_train)
-            y_test_pred = model.predict(x_test)
+            y_train_pred = best_model.predict(x_train)
+            y_test_pred = best_model.predict(x_test)
 
             # Scores
-            train_model_score = r2_score(y_train, y_train_pred)
-            test_model_score = r2_score(y_test, y_test_pred)
+            train_score = r2_score(y_train, y_train_pred)
+            test_score = r2_score(y_test, y_test_pred)
 
-            # Save ONLY test score (used for model selection)
-            report[model_name] = test_model_score
+            report[model_name] = test_score
 
         return report
+
+    except Exception as e:
+        raise CustomException(e, sys)
 
     except Exception as e:
         raise CustomException(e, sys)

@@ -23,7 +23,6 @@ class DataTransformation():
         self.data_transformation_config=DataTransformationConfig()
 
     def get_data_transformer_obj(self):
-
         try:
            num_atrribs = ["writing_score","reading_score"]
            cat_atrribs = ["gender","race_ethnicity","parental_level_of_education",
@@ -55,9 +54,6 @@ class DataTransformation():
 
            return preprocessor
         
-        
-            
-           
         except Exception as e:
             raise CustomException(e,sys)
         
@@ -66,7 +62,6 @@ class DataTransformation():
             try:
                 '''get train and test data 
                 separate target and input feature 
-                merge numerical and categorical features using np.c_ 
                 
                 '''
                 train_df= pd.read_csv(train_path)
@@ -101,7 +96,6 @@ class DataTransformation():
                 save_object(
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
                 obj=preprocessing_obj
-
                 )
                 logging.info("preprocessor saved successfully")
                 return (
