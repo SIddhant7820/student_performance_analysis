@@ -1,15 +1,12 @@
 # --- Python cache & compiled files ---
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
 
 # --- Virtual environments ---
 .venv/
 venv/
 env/
 ENV/
-*.env
 
 # --- Jupyter Notebook checkpoints ---
 .ipynb_checkpoints/
@@ -17,31 +14,10 @@ ENV/
 # --- IDE / Editor files ---
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# --- Data files ---
-*.csv
-*.tsv
-*.xlsx
-*.xls
-*.json
-*.parquet
-*.h5
-*.pkl
-*.pickle
 
 # --- Logs ---
 logs/
 *.log
-
-# --- Model files ---
-*.h5
-*.pt
-*.pth
-*.joblib
-*.sav
-*.pkl
 
 # --- Build and distribution folders ---
 build/
@@ -51,16 +27,8 @@ dist/
 # --- Temporary / OS files ---
 .DS_Store
 Thumbs.db
-~$*
 
-# --- Project-specific folders ---
-# (optional) Ignore large raw datasets if stored locally
+# --- Large raw data (optional) ---
 data/raw/
 data/interim/
 data/temp/
-
-# --- Others you might want to ignore ---
-# Jupyter nbconvert output
-output/
-reports/
-
